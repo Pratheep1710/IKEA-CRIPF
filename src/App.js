@@ -10,7 +10,7 @@ import DigitalAPIHealthCheck from "./pages/Digital-API-Health-check/Digital-API-
 import ART_SPRView from "./pages/ART_SPR-view/ART_SPR-view.page";
 import PriceChange from "./pages/price-change/price-change.component";
 
-import initialToken from "./store/initial-token/initial-token.action";
+import Middleware from "./store/Middleware";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -25,23 +25,7 @@ function App() {
   bodyFormData.append("password", "api");
 
   useEffect(() => {
-    dispatch(initialToken());
-    // axios({
-    //   method: "post",
-    //   url: "https://buyabletool-u5ngogn2ia-ew.a.run.app/User",
-    //   data: bodyFormData,
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // })
-    //   .then((getData) => {
-    //     const initialToken = getData.data;
-    //     console.log(initialToken);
-    //     //dispatch(setInitialToken(initialToken));
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //   });
+    dispatch(Middleware.initialToken());
   }, []);
   return (
     <div className="App">

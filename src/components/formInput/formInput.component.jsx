@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import userInputAction from "../../store/user-input/user-input.action";
+import Middleware from "../../store/Middleware";
+import Actions, { ActionTypes } from "../../store/Actions";
 
 import "./formInput.styles.scss";
 
 const FORM_FEILDS = {
-  textarea: null,
+  textarea: [],
   market: "",
 };
 
 function FormInput() {
   const [toggleButton, setToggleButton] = useState(false);
   const [formInput, setFormInput] = useState(FORM_FEILDS);
+  const [errors, setErrors] = useState({});
   const { textarea, market } = formInput;
   const dispatch = useDispatch();
 
@@ -19,14 +21,27 @@ function FormInput() {
     const { name, value } = e.target;
     setFormInput({ ...formInput, [name]: value });
   };
+  let items;
+  const onKeyPress = (e) => {
+    console.log(e.key);
+    if (e.key === "Enter") {
+      items = textarea.replace(new RegExp("[\r\n]", "gm"), ",");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     toggleButton ? setToggleButton(false) : setToggleButton(true);
   };
 
+  const submitClick = (result, market) => {
+    console.log("onsubmit  " + market + "     ------" + result);
+
+    dispatch(Middleware.getItemsMarketData(result, market));
+  };
+
   useEffect(() => {
-    dispatch(userInputAction(toggleButton));
+    dispatch(Actions.userInputAction(toggleButton));
   }, [toggleButton]);
 
   return (
@@ -34,42 +49,47 @@ function FormInput() {
       <p>*Kindly fill either the single or multiple market information</p>
       <p className="p-tag">For single market, provide information</p>
       <form onSubmit={handleSubmit} className="input-area">
-        <div class="form-field">
-          <div class="text-area label-wrapper label-wrapper--text-input">
-            <label for="example-id" class="" title="Enter item No.">
+        <div className="form-field">
+          <div className="text-area label-wrapper label-wrapper--text-input">
+            <label for="example-id" className="" title="Enter item No.">
               Enter item No.
             </label>
-            <div class="text-area__wrapper">
+            <div className="text-area__wrapper">
               <textarea
-                className="text"
+                className="textArea"
                 id="example-id"
                 aria-describedby="helper-msg-id"
                 aria-required="false"
                 type="text"
-                placeholder="Example &#10; 00455378 &#10; 00478718 &#10;"
+                pattern="[0-9]*"
+                placeholder="Example
+                00455378
+                00478718 "
                 name="textarea"
                 onChange={handleChange}
                 value={textarea}
+                onKeyPress={onKeyPress}
               ></textarea>
             </div>
+            <div>{errors.item && <h3>{errors.item}</h3>}</div>
           </div>
-          <div class="form-field__content">
+          <div className="form-field__content">
             <span
               id="helper-msg-id"
               aria-hidden="false"
-              class="form-field__message-wrapper"
+              className="form-field__message-wrapper"
               type=""
             >
-              <span class="form-field__message">(Max of 1000 items)</span>
+              <span className="form-field__message">(Max of 1000 items)</span>
             </span>
           </div>
         </div>
-        <div class="text-field">
-          <div class="input-field input-field--prefixed input-field--suffixed label-wrapper label-wrapper--text-input">
-            <label for="example-id" class="" title="Enter market">
+        <div className="text-field">
+          <div className="input-field input-field--prefixed input-field--suffixed label-wrapper label-wrapper--text-input">
+            <label for="example-id" className="" title="Enter market">
               Enter market
             </label>
-            <div class="input-field__wrapper">
+            <div className="input-field__wrapper">
               <input
                 className="input-text"
                 type="text"
@@ -87,25 +107,30 @@ function FormInput() {
           <button
             aria-disabled="false"
             type="submit"
-            class="btn btn--small btn--primary"
+            className="btn btn--small btn--primary"
           >
-            <span class="btn__inner">
-              <span class="btn__label">Submit</span>
+            <span className="btn__inner">
+              <span
+                className="btn__label"
+                onClick={submitClick(textarea, market)}
+              >
+                Submit
+              </span>
             </span>
           </button>
           <button
             aria-disabled="false"
             type="button"
-            class="btn btn--small btn--secondary"
+            className="btn btn--small btn--secondary"
           >
-            <span class="btn__inner">
-              <span class="btn__label">Clear</span>
+            <span className="btn__inner">
+              <span className="btn__label">Clear</span>
             </span>
           </button>
         </div>
       </form>
 
-      <hr class="demo-divider__hr-horizonta2" />
+      <hr className="demo-divider__hr-horizonta2" />
     </div>
   );
 }

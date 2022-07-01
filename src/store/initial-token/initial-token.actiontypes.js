@@ -1,7 +1,0 @@
-const initialTokenActionTypes = {
-  INITIAL_TOKEN_LOADING: "INITIAL_TOKEN_LOADING",
-  INITIAL_TOKEN_SUCCESS: "INITIAL_TOKEN_SUCCESS",
-  INITIAL_TOKEN_ERROR: "INITIAL_TOKEN_ERROR",
-};
-
-export default initialTokenActionTypes;

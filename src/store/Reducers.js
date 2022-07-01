@@ -1,20 +1,21 @@
-import initialTokenActionTypes from "./initial-token.actiontypes";
+import { ActionsTypes } from "./Actions";
 
 const INITIAL_STATE = {
   data: [],
   loading: false,
   error: "",
+  toggleButton: false,
 };
 
-const initialTokenReducer = (state = INITIAL_STATE, action) => {
+const Reducers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case initialTokenActionTypes.INITIAL_TOKEN_LOADING:
+    case ActionsTypes.INITIAL_TOKEN_LOADING:
       return {
         ...state,
         loading: true,
         error: "",
       };
-    case initialTokenActionTypes.INITIAL_TOKEN_SUCCESS:
+    case ActionsTypes.INITIAL_TOKEN_SUCCESS:
       let stringifiedToken = JSON.stringify(action.payload);
       let copyOfToken = JSON.parse(stringifiedToken);
       return {
@@ -22,15 +23,19 @@ const initialTokenReducer = (state = INITIAL_STATE, action) => {
         data: copyOfToken,
         loading: false,
       };
-    case initialTokenActionTypes.INITIAL_TOKEN_ERROR:
+    case ActionsTypes.INITIAL_TOKEN_ERROR:
       return {
         ...state,
         loading: false,
         error: action.error,
       };
+    case ActionsTypes.SET_BUTTON_TOGGLE:
+      return { 
+        ...state, toggleButton: action.payload 
+    };
     default:
       return state;
   }
 };
 
-export default initialTokenReducer;
+export default Reducers;

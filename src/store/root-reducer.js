@@ -1,9 +1,7 @@
 import { combineReducers } from "redux";
 
-import userInputReducer from "./user-input/user-input.reducer";
-import initialTokenReducer from "./initial-token/initial-token.reducer";
 
+import Reducers from "./Reducers";
 export const rootReducer = combineReducers({
-  user: userInputReducer,
-  token: initialTokenReducer,
+  fetchAll : Reducers,
 });

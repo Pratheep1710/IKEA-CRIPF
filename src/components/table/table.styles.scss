@@ -1,0 +1,40 @@
+// table {
+//   margin-left: 20px;
+//   margin-top: 15px;
+//   width: 100%;
+//   border-collapse: collapse;
+// }
+
+// td,
+// th {
+//   border: 1px #dddddd solid;
+//   text-align: left;
+//   padding: 5px;
+// }
+
+.table-container {
+  margin-left: 20px;
+  margin-top: 30px;
+  overflow: scroll;
+  overflow: auto;
+
+  p {
+    font-weight: bold;
+  }
+
+  .container-2 {
+    position: relative;
+    margin-bottom: 30px;
+
+    .btn {
+      position: absolute;
+      right: 20px;
+      top: 5px;
+    }
+  }
+
+  .thead {
+    overflow: auto;
+    width: 100%;
+  }
+}
