@@ -8,6 +8,7 @@ import Header from "../../components/header/header.component";
 import NavTab from "../../components/navTabs/navtabs.component";
 import FormInput from "../../components/formInput/formInput.component";
 import SpreadSheetArea from "../../components/spreadsheet-area/spreadsheet-area.component";
+import DataTable from "../../components/table/table.component";
 
 const DailyAnalysisPage = () => {
   const buttonToggle = useSelector((state) => state.fetchAll.toggleButton);
