@@ -1,24 +1,24 @@
 .header {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+
+  .sub-topic {
+    margin-left: 30px;
+  }
+
+  .other-details {
+    width: 50%;
+    height: 100%;
     display: flex;
     align-items: center;
-    padding: 20px 20px;
+    justify-content: flex-end;
+    margin-left: 210px;
+    cursor: pointer;
 
-    .sub-topic {
-        margin-left: 30px;
+    .mail {
+      margin-left: 10px;
+      margin-right: 50px;
     }
-   
-    .other-details {
-        width: 50%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      margin-left: 210px;
-
-      .mail{
-          margin-left: 10px;
-          margin-right: 50px;
-      }
-    }
-
+  }
 }

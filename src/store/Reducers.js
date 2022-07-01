@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   data: [],
   loading: false,
   error: "",
-  toggleButton: false,
+  toggleButton: null,
+  marketData: [],
 };
 
 const Reducers = (state = INITIAL_STATE, action) => {
@@ -30,9 +31,37 @@ const Reducers = (state = INITIAL_STATE, action) => {
         error: action.error,
       };
     case ActionsTypes.SET_BUTTON_TOGGLE:
-      return { 
-        ...state, toggleButton: action.payload 
-    };
+      return {
+        ...state,
+        toggleButton: true,
+      };
+    case ActionsTypes.SET_HOME_TOGGLE: {
+      return {
+        ...state,
+        toggleButton: false,
+      };
+    }
+    case ActionsTypes.SET_MARKETDATA_LOADING: {
+      return {
+        ...state,
+        loading: true,
+        error: "",
+      };
+    }
+    case ActionsTypes.SET_MARKETDATA_SUCCESS: {
+      return {
+        ...state,
+        marketData: action.payload,
+        loading: false,
+      };
+    }
+    case ActionsTypes.SET_MARKETDATA_ERROR: {
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    }
     default:
       return state;
   }

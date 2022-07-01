@@ -12,7 +12,8 @@ import DataTable from "../../components/table/table.component";
 
 const DailyAnalysisPage = () => {
   const buttonToggle = useSelector((state) => state.fetchAll.toggleButton);
-
+  const dataLoading = useSelector((state) => state.fetchAll.loading);
+  console.log(dataLoading);
   return (
     <div>
       <Header />
@@ -25,7 +26,7 @@ const DailyAnalysisPage = () => {
           <b>OR</b>
           <SpreadSheetArea />
         </div>
-      ) : (
+      ) : dataLoading ? null : (
         <DataTable />
       )}
     </div>

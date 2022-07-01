@@ -1,48 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Middleware from "../../store/Middleware";
-import Actions, { ActionTypes } from "../../store/Actions";
+import Actions from "../../store/Actions";
 
 import "./formInput.styles.scss";
 
 const FORM_FEILDS = {
-  textarea: [],
+  textarea: "",
   market: "",
 };
 
 function FormInput() {
-  const [toggleButton, setToggleButton] = useState(false);
   const [formInput, setFormInput] = useState(FORM_FEILDS);
-  const [errors, setErrors] = useState({});
   const { textarea, market } = formInput;
   const dispatch = useDispatch();
+
+  console.log(textarea, market);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput({ ...formInput, [name]: value });
   };
-  let items;
-  const onKeyPress = (e) => {
-    console.log(e.key);
-    if (e.key === "Enter") {
-      items = textarea.replace(new RegExp("[\r\n]", "gm"), ",");
-    }
-  };
+  // let items;
+  // const onKeyPress = (e) => {
+  //   console.log(e.key);
+  //   if (e.key === "Enter") {
+  //     items = textarea.replace(new RegExp("[\r\n]", "gm"), ",");
+  //   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    toggleButton ? setToggleButton(false) : setToggleButton(true);
+    console.log(textarea, market);
+    dispatch(Middleware.getItemsMarketData(textarea, market));
+    dispatch(Actions.userInputAction());
   };
 
-  const submitClick = (result, market) => {
-    console.log("onsubmit  " + market + "     ------" + result);
+  // const submitClick = (result, market) => {
+  //   console.log("onsubmit  " + market + "     ------" + result);
 
-    dispatch(Middleware.getItemsMarketData(result, market));
-  };
-
-  useEffect(() => {
-    dispatch(Actions.userInputAction(toggleButton));
-  }, [toggleButton]);
+  //   dispatch(Middleware.getItemsMarketData(result, market));
+  // };
 
   return (
     <div className="form-container">
@@ -68,10 +65,8 @@ function FormInput() {
                 name="textarea"
                 onChange={handleChange}
                 value={textarea}
-                onKeyPress={onKeyPress}
               ></textarea>
             </div>
-            <div>{errors.item && <h3>{errors.item}</h3>}</div>
           </div>
           <div className="form-field__content">
             <span
@@ -110,12 +105,7 @@ function FormInput() {
             className="btn btn--small btn--primary"
           >
             <span className="btn__inner">
-              <span
-                className="btn__label"
-                onClick={submitClick(textarea, market)}
-              >
-                Submit
-              </span>
+              <span className="btn__label">Submit</span>
             </span>
           </button>
           <button
